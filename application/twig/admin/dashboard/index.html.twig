@@ -1,7 +1,6 @@
 {% extends 'admin/layout.html.twig' %}
 
 {% block content_title %}
-	Dashboard
 {% endblock %}
 
 {% block content %}
@@ -29,8 +28,115 @@
 	                -->
 	            </div>
 	            <div class="body">
-	                
-	                Selamat datang {{ get_user('realname') }}
+
+	            	<div class="row clearfix">
+		                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		                	<a class="a-box" href="javascript:;">
+			                    <div class="info-box bg-pink">
+			                        <div class="icon" >
+			                        	<div style="font-size: 36px; margin-top: 15px;">1</div>
+			                            <!--<i class="material-icons">playlist_add_check</i>-->
+			                        </div>
+			                        <div class="content">
+			                            <div style="font-size: 20px;">PENGISIAN SALES INVOICE NON SPK</div>
+			                        </div>
+			                    </div>
+		                    </a>
+		                </div>
+
+		                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		                	<a class="a-box" href="javascript:;">
+			                    <div class="info-box bg-cyan">
+			                        <div class="icon" >
+			                        	<div style="font-size: 36px; margin-top: 15px;">2</div>
+			                        </div>
+			                        <div class="content">
+			                            <div style="font-size: 20px;">PEMBATALAN SALES INVOICE</div>
+			                        </div>
+			                    </div>
+		                    </a>
+		                </div>
+
+		                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		                	<a class="a-box" href="javascript:;">
+			                    <div class="info-box bg-light-green">
+			                        <div class="icon" >
+			                        	<div style="font-size: 36px; margin-top: 15px;">3</div>
+			                        </div>
+			                        <div class="content">
+			                            <div style="font-size: 20px;">CETAK ULANG INVOICE</div>
+			                        </div>
+			                    </div>
+		                    </a>
+		                </div>
+
+		                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		                	<a class="a-box" href="javascript:;">
+			                    <div class="info-box bg-orange">
+			                        <div class="icon" >
+			                        	<div style="font-size: 36px; margin-top: 15px;">4</div>
+			                        </div>
+			                        <div class="content">
+			                            <div style="font-size: 20px;">PELUNASAN PIUTANG</div>
+			                        </div>
+			                    </div>
+		                    </a>
+		                </div>
+
+		                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		                	<a class="a-box" href="javascript:;">
+			                    <div class="info-box bg-deep-orange">
+			                        <div class="icon" >
+			                        	<div style="font-size: 36px; margin-top: 15px;">5</div>
+			                        </div>
+			                        <div class="content">
+			                            <div style="font-size: 20px;">CUSTOMER</div>
+			                        </div>
+			                    </div>
+		                    </a>
+		                </div>
+
+		                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		                	<a class="a-box" href="javascript:;">
+			                    <div class="info-box bg-blue">
+			                        <div class="icon" >
+			                        	<div style="font-size: 36px; margin-top: 15px;">6</div>
+			                        </div>
+			                        <div class="content">
+			                            <div style="font-size: 20px;">LAPORAN PENJUALAN</div>
+			                        </div>
+			                    </div>
+		                    </a>
+		                </div>
+
+		                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		                	<a class="a-box" href="javascript:;">
+			                    <div class="info-box bg-green">
+			                        <div class="icon" >
+			                        	<div style="font-size: 36px; margin-top: 15px;">7</div>
+			                        </div>
+			                        <div class="content">
+			                            <div style="font-size: 20px;">LAPORAN PIUTANG</div>
+			                        </div>
+			                    </div>
+		                    </a>
+		                </div>
+
+		                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		                	<a class="a-box" href="javascript:;">
+			                    <div class="info-box bg-amber">
+			                        <div class="icon" >
+			                        	<div style="font-size: 36px; margin-top: 15px;">8</div>
+			                        </div>
+			                        <div class="content">
+			                            <div style="font-size: 20px;">LAPORAN VOID</div>
+			                        </div>
+			                    </div>
+		                    </a>
+		                </div>
+
+		               
+		            </div>
 
 	            </div>
 	        </div>
@@ -48,14 +154,14 @@
 	        var $openCloseBar = $('.navbar .navbar-header .bars');
 	        var width = $body.width();
 
-	        if (width < 1100) {
+	        /*if (width < 1100) {
 	            $body.addClass('ls-closed');
 	            $openCloseBar.fadeIn();
 	        }
 	        else {
 	            $body.removeClass('ls-closed');
 	            $openCloseBar.fadeOut();
-	        }
+	        }*/
 		}, 500);
 	</script>
 {% endblock %}

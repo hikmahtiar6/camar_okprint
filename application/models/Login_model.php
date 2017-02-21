@@ -4,7 +4,7 @@
  */
 class Login_model extends CI_Model
 {
-	const TABLE = 'Shared.Users';
+	const TABLE = 'tbl_user';
 
 	/**
 	 * constructor
@@ -23,17 +23,15 @@ class Login_model extends CI_Model
 
 		$sql->select('*');
 		$sql->from(static::TABLE);
-		$sql->where('UserId', $this->session->userdata('user_id'));
+		$sql->where('user_id', $this->session->userdata('user_id'));
 		$get = $sql->get();
 		$row = $get->row();
 
 		if($row)
 		{
 			$data = array(
-				'username' => $row->UserId,
-				'password' => $row->Password,
-				'realname' => $row->NickName,
-				'role'     => $row->UserRole,
+				'username' => $row->username,
+				'role'     => $row->level,
 			);
 
 			return $data;
@@ -53,8 +51,8 @@ class Login_model extends CI_Model
 
 		$sql->select('*');
 		$sql->from(static::TABLE);
-		$sql->where('UserId', $username);
-		$sql->where('Password', $password);
+		$sql->where('username', $username);
+		$sql->where('password', $password);
 
 		$get = $sql->get();
 

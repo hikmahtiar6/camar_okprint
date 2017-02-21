@@ -29,12 +29,12 @@ class Login extends CI_Controller
 	public function process_login()
 	{
 		$username = $this->input->post('uname');
-		$password = $this->input->post('upass');
+		$password = md5($this->input->post('upass'));
 
 		$get_data_user = $this->login_model->get_account($username, $password);
 		if($get_data_user)
 		{
-			$this->session->set_userdata('user_id', $get_data_user->UserId);
+			$this->session->set_userdata('user_id', $get_data_user->user_id);
 			$response = array(
 				'status'  => 'success',
 				'message' => 'Anda berhasil login'

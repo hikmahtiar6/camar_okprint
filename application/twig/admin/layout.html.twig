@@ -47,6 +47,15 @@
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="{{ base_url('assets_app/css/themes/all-themes.min.css') }}" rel="stylesheet" />
+
+    <style type="text/css">
+        .a-box:hover {
+            text-decoration: none;
+        }
+        .a-box:hover .info-box {
+            cursor: pointer;
+        }
+    </style>
     
     {% endblock %}
 </head> 
@@ -87,10 +96,10 @@
     <nav class="navbar">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-                <a href="javascript:void(0);" class="bars"></a>
+                <!--<a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                <a href="javascript:void(0);" class="bars"></a>-->
 
-                <a style="margin-left: 15px;" class="navbar-brand" href="{{ site_url('admin/dashboard') }}">PT. EVANINDO - Admin</a>
+                <a style="margin-left: 15px;" class="navbar-brand" href="{{ site_url('admin/dashboard') }}">OKE PRINT - Admin</a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -300,7 +309,7 @@
                 </div>
                 <div class="info-container">
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{ get_user('realname') }}</div>
+                    </div>
                     <div class="email">{{ get_user('username') }}</div>
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
