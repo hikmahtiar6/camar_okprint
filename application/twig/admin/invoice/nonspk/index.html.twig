@@ -34,6 +34,16 @@
 		            							<div class="form-line">
 		            								<select class="form-control">
 		            									<option>-Silahkan pilih-</option>
+		            									{% if cust_data %}
+
+							                        	{% for cust_row in cust_data %}
+
+							                        		<option value="{{ cust_row.customer_id }}">
+							                        			{{ cust_row.nama }}
+							                        		</option>
+							                        	{% endfor %}
+
+							                        {% endif %}
 		            								</select>
 		            							</div>
 		            						</div>
@@ -132,6 +142,8 @@
 		            							<div class="form-line">
 		            							<select class="form-control">
 		            									<option>-Silahkan pilih-</option>
+		            									<option>Cash</option>
+		            									<option>Kredit</option>
 		            								</select>
 		            							</div>
 		            						</div>
@@ -178,12 +190,186 @@
 		            				</div>
 		            			</div>
 
-		            			<div class="clearfix">&nbsp;</div>
-
-				                
-						                
+		            			<div class="clearfix">&nbsp;</div>        
 
 							</form>
+
+							<table class="table table-bordered">
+	            				<thead>
+	            					<tr>
+	            					<th>
+	            						Kode
+	            					</th>
+	            					<th>
+	            						Nama Barang
+	            					</th>
+	            					<th>
+	            						Keterangan
+	            					</th>
+	            					<th>
+	            						Satuan
+	            					</th>
+	            					<th>
+	            						Qty
+	            					</th>
+	            					<th>
+	            						P
+	            					</th>
+	            					<th>
+	            						L
+	            					</th>
+	            					<th>
+	            						Harga
+	            					</th>
+	            					<th>
+	            						Disc %
+	            					</th>
+	            					<th>
+	            						Disc Rp
+	            					</th>
+	            					<th>
+	            						Jumlah
+	            					</th>
+
+	            				</tr>
+	            				</thead>
+
+	            				<tbody>
+	            					<tr>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            					</tr>
+
+	            					<tr>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            					</tr>
+
+	            					<tr>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            						<td>&nbsp;</td>
+	            					</tr>
+	            				</tbody>
+	            				
+	            			</table>
+
+	            			<form>
+	            				
+	            				<div class="col-md-3">
+	            					<button class="btn btn-primary">Proses</button>
+	            					<button class="btn btn-warning">Tunda</button>
+	            				</div>
+
+	            				<div class="col-md-3">
+	            					<label>Keterangan</label>
+	            					<div class="form-group">
+
+	            						<div class="form-line">
+	            						<textarea></textarea>
+	            						</div>
+
+	            					</div>
+	            				</div>
+
+	            				<div class="col-md-3">
+	            					<div class="form-group">
+	            						<div class="row clearfix">
+			            					<label class="col-md-4">Total</label>
+			            					<div class="col-md-8">
+			            						<div class="form-line">
+			            							<input class="form-control">
+		            							</div>
+		            						</div>
+	            						</div>
+	            					</div>
+
+	            					<div class="form-group">
+	            						<div class="row clearfix">
+			            					<label class="col-md-4">Discount</label>
+			            					<div class="col-md-8">
+			            						<div class="form-line">
+			            							<input class="form-control">
+		            							</div>
+		            						</div>
+	            						</div>
+	            					</div>
+
+	            					<div class="form-group">
+	            						<div class="row clearfix">
+			            					<label class="col-md-4">Charge</label>
+			            					<div class="col-md-8">
+			            						<div class="form-line">
+			            							<input class="form-control">
+		            							</div>
+		            						</div>
+	            						</div>
+	            					</div>
+	            				</div>
+
+
+	            				<div class="col-md-3">
+	            					<div class="form-group">
+	            						<div class="row clearfix">
+			            					<label class="col-md-4">Netto</label>
+			            					<div class="col-md-8">
+			            						<div class="form-line">
+			            							<input class="form-control">
+		            							</div>
+		            						</div>
+	            						</div>
+	            					</div>
+
+	            					<div class="form-group">
+	            						<div class="row clearfix">
+			            					<label class="col-md-4">Bayar</label>
+			            					<div class="col-md-8">
+			            						<div class="form-line">
+			            							<input class="form-control">
+		            							</div>
+		            						</div>
+	            						</div>
+	            					</div>
+
+	            					<div class="form-group">
+	            						<div class="row clearfix">
+			            					<label class="col-md-4">Kembali</label>
+			            					<div class="col-md-8">
+			            						<div class="form-line">
+			            							<input class="form-control">
+		            							</div>
+		            						</div>
+	            						</div>
+	            					</div>
+	            				</div>
+
+	            			</form>
 
 
 	            		</div>
