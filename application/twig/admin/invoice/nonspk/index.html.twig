@@ -19,180 +19,122 @@
 
 	            		<div class="col-md-12">
 
-	            			<form class="transaction-form" method="POST" action="{{ site_url('admin/transaction/save') }}">
-							
-		            			<div class="col-md-6">
+	            			<table border="0" cellpadding="0" cellspacing="0" class="" style="width: 100%">
+	            				<tr>
+	            					<td>
+	            						<label>Customer</label>
+	            					</td>
+	            					<td width="300">
+	            						<div class="form-line">
+            								<select class="form-control">
+            									<option>-Silahkan pilih-</option>
+            									{% if cust_data %}
 
-		            				<div class="row clearfix">
+					                        	{% for cust_row in cust_data %}
 
-		            					<div class="col-md-3">
-		            						<label>Customer</label>
-		            					</div>
-		            					
-		            					<div class="col-md-7">
-		            						<div class="form-group">
-		            							<div class="form-line">
-		            								<select class="form-control">
-		            									<option>-Silahkan pilih-</option>
-		            									{% if cust_data %}
+					                        		<option value="{{ cust_row.customer_id }}">
+					                        			{{ cust_row.nama }}
+					                        		</option>
+					                        	{% endfor %}
 
-							                        	{% for cust_row in cust_data %}
+					                        {% endif %}
+            								</select>
+            							</div>
+	            					</td>
+	            					<td width="200" rowspan="4" valign="top" style="padding-left: 10px;">
+		            					<button class="btn btn-info" type="button" style="margin-top: 10px;">...</button>
 
-							                        		<option value="{{ cust_row.customer_id }}">
-							                        			{{ cust_row.nama }}
-							                        		</option>
-							                        	{% endfor %}
-
-							                        {% endif %}
-		            								</select>
-		            							</div>
-		            						</div>
-		            					</div>
-		            					<div class="col-md-2">
-		            						<button class="btn btn-info" type="button">...</button>
-		            					</div>
-
-		            				</div>
-
-		            				<div class="row clearfix">
-
-		            					<div class="col-md-3">
-		            						<label>Nomor SPK</label>
-		            					</div>
-		            					
-		            					<div class="col-md-7">
-		            						<div class="form-group">
-		            							<div class="form-line">
-		            							<input class="form-control" type="text">
-		            							</div>
-		            						</div>
-		            					</div>
-
-		            				</div>
-
-		            				<div class="row clearfix">
-
-		            					<div class="col-md-3">
-		            						<label>Nomor Jual</label>
-		            					</div>
-		            					
-		            					<div class="col-md-7">
-		            						<div class="form-group">
-		            							<div class="form-line">
-		            							<input class="form-control" type="text" readonly="">
-		            							</div>
-		            						</div>
-		            					</div>
-
-		            				</div>
-
-		            				<div class="row clearfix">
-
-		            					<div class="col-md-3">
-		            						<label>Stock</label>
-		            					</div>
-		            					
-		            					<div class="col-md-7">
-		            						<div class="form-group">
-		            							<div class="form-line">
-		            							<input class="form-control" type="text" readonly="">
-		            							</div>
-		            						</div>
-		            					</div>
-
-		            				</div>
-		            			</div>
-
-		            			<div class="col-md-6">
-
-		            				<div class="row clearfix">
-
-		            					<div class="col-md-3">
-
+	            					</td>
+	            					<td width="100" rowspan="4" valign="top">
+	            						<div style="margin-left: -20px;">
 		            						<label>Buffer</label>
-		            						<textarea class="form-control"></textarea>
-
-		            					</div>
-
-		            					<div class="col-md-3">
-		            						<label>Tgl. Jual</label>
-		            					</div>
-		            					
-		            					<div class="col-md-6">
-		            						<div class="form-group">
-		            							<div class="form-line">
-		            								<input class="form-control" type="text">
-		            								
-		            							</div>
+		            						<br>
+		            						<div class="form-line">
+		            							<input class="form-control" type="text" style="width: 70px;">
 		            						</div>
-		            					</div>
+	            						</div>
+	            					</td>
+	            					<td>
+		            					<label>Tgl. Jual</label>
+		            				</td>
+		            				<td>
+            							<div class="form-line">
+            								<input class="form-control" type="text">
+            							</div>
+	            					</td>
+	            				</tr>
 
-		            				</div>
-
-		            				<div class="row clearfix">
-
-		            					<div class="col-md-3">
-		            					</div>
-		            					<div class="col-md-3">
-		            						<label>Syarat Bayar</label>
-		            					</div>
+	            				<tr>
+	            					<td>
+		            					<label>Nomor SPK</label>
+		            				</td>
+		            				<td>
+            							<div class="form-line">
+            								<input class="form-control" type="text">
+            							</div>
+		            				</td>
+		            				<td>
+	            						<label>Syarat Bayar</label>
+	            					</td>
+	            					<td>
 		            					
-		            					<div class="col-md-6">
-		            						<div class="form-group">
-		            							<div class="form-line">
-		            							<select class="form-control">
-		            									<option>-Silahkan pilih-</option>
-		            									<option>Cash</option>
-		            									<option>Kredit</option>
-		            								</select>
-		            							</div>
-		            						</div>
-		            					</div>
+            							<div class="form-line">
+            								<select class="form-control">
+            									<option>-Silahkan pilih-</option>
+            									<option>Cash</option>
+            									<option>Kredit</option>
+            								</select>
+            							</div>
+		            				</td>
+	            				</tr>
+	            				
+	            				<tr>
+	            					<td>
+		            					<label>Nomor Jual</label>
+		            				</td>
+		            				<td>
+            							<div class="form-line">
+            								<input class="form-control" type="text">
+            							</div>
+		            				</td>
+		            				<td>
+		            					<label>Stock</label>
+		            				</td>
+		            				<td>
+            							<div class="form-line">
+            								<input class="form-control" type="text">
+            							</div>
+		            				</td>
+	            				</tr>
 
-		            				</div>
+	            				<tr>
+	            					
+		            				<td>
+	            						<label>Tempo Hari</label>
+	            					</td>
+	            					<td>
+            							<div class="form-line">
+            								<input class="form-control" type="text">
+            							</div>
+		            				</td>
+		            				<td>
+	            						<label>Jatuh Tempo</label>
+	            					</td>
+	            					<td>
+            							<div class="form-line">
+            								<input class="form-control" type="text">
+            							</div>
+		            				</td>
+	            				</tr>
 
-		            				<div class="row clearfix">
+	            			</table>
 
-		            					<div class="col-md-3">
-		            					</div>
+	            			<form class="transaction-form" method="POST" action="{{ site_url('admin/transaction/save') }}">
 
-		            					<div class="col-md-3">
-		            						<label>Tempo Hari</label>
-		            					</div>
-		            					
-		            					<div class="col-md-6">
-		            						<div class="form-group">
-		            							<div class="form-line">
-		            							<input class="form-control" type="text">
-		            							</div>
-		            						</div>
-		            					</div>
-
-		            				</div>
-
-		            				<div class="row clearfix">
-
-		            					<div class="col-md-3">
-		            					</div>
-
-		            					<div class="col-md-3">
-		            						<label>Jatuh Tempo</label>
-		            					</div>
-		            					
-		            					<div class="col-md-6">
-		            						<div class="form-group">
-		            							<div class="form-line">
-		            								<input class="form-control" type="text">
-		            							</div>
-		            						</div>
-		            					</div>
-
-		            				</div>
-		            			</div>
-
-		            			<div class="clearfix">&nbsp;</div>        
-
+							
 							</form>
+
+							<br>
 
 							<table class="table table-bordered">
 	            				<thead>
@@ -280,94 +222,84 @@
 	            				
 	            			</table>
 
+	            			<br>
+
+	            			<table cellpadding="0" cellspacing="0" border="0" style="width: 100%">
+	            				<tr>
+	            					<td valign="top">
+		            					<button class="btn btn-primary" style="height: 60px;">Proses</button>
+		            					<button class="btn btn-warning" style="height: 60px;">Tunda</button>
+	            					</td>
+	            					<td valign="top">
+	            						<label>Keterangan</label>
+	            						<br>
+	            						<textarea></textarea>
+	            					</td>
+	            					<td>
+
+	            					<table>
+	            						<tr>
+	            							<td>
+	            								<label>Total</label>
+	            							</td>
+	            							<td style="padding-right: 20px;">
+	            								<div class="form-line">
+			            							<input class="form-control">
+		            							</div>
+	            							</td>
+	            							<td>
+	            								<label>Netto</label>
+	            							</td>
+	            							<td>
+	            								<div class="form-line">
+			            							<input class="form-control">
+		            							</div>
+	            							</td>
+	            						</tr>
+	            						<tr>
+	            							<td>
+	            								<label>Discount</label>
+	            							</td>
+	            							<td style="padding-right: 20px;">
+	            								<div class="form-line">
+			            							<input class="form-control">
+		            							</div>
+	            							</td>
+	            							<td>
+	            								<label>Bayar</label>
+	            							</td>
+	            							<td>
+	            								<div class="form-line">
+			            							<input class="form-control">
+		            							</div>
+	            							</td>
+	            						</tr>
+	            						<tr>
+	            							<td>
+	            								<label>Charge</label>
+	            							</td>
+	            							<td style="padding-right: 20px;">
+	            								<div class="form-line">
+			            							<input class="form-control">
+		            							</div>
+	            							</td>
+	            							<td>
+	            								<label>Sisa</label>
+	            							</td>
+	            							<td>
+	            								<div class="form-line">
+			            							<input class="form-control">
+		            							</div>
+	            							</td>
+	            						</tr>
+	            					</table>
+
+	            					</td>
+	            				</tr>
+	            			</table>
+
 	            			<form>
 	            				
-	            				<div class="col-md-3">
-	            					<button class="btn btn-primary">Proses</button>
-	            					<button class="btn btn-warning">Tunda</button>
-	            				</div>
-
-	            				<div class="col-md-3">
-	            					<label>Keterangan</label>
-	            					<div class="form-group">
-
-	            						<div class="form-line">
-	            						<textarea></textarea>
-	            						</div>
-
-	            					</div>
-	            				</div>
-
-	            				<div class="col-md-3">
-	            					<div class="form-group">
-	            						<div class="row clearfix">
-			            					<label class="col-md-4">Total</label>
-			            					<div class="col-md-8">
-			            						<div class="form-line">
-			            							<input class="form-control">
-		            							</div>
-		            						</div>
-	            						</div>
-	            					</div>
-
-	            					<div class="form-group">
-	            						<div class="row clearfix">
-			            					<label class="col-md-4">Discount</label>
-			            					<div class="col-md-8">
-			            						<div class="form-line">
-			            							<input class="form-control">
-		            							</div>
-		            						</div>
-	            						</div>
-	            					</div>
-
-	            					<div class="form-group">
-	            						<div class="row clearfix">
-			            					<label class="col-md-4">Charge</label>
-			            					<div class="col-md-8">
-			            						<div class="form-line">
-			            							<input class="form-control">
-		            							</div>
-		            						</div>
-	            						</div>
-	            					</div>
-	            				</div>
-
-
-	            				<div class="col-md-3">
-	            					<div class="form-group">
-	            						<div class="row clearfix">
-			            					<label class="col-md-4">Netto</label>
-			            					<div class="col-md-8">
-			            						<div class="form-line">
-			            							<input class="form-control">
-		            							</div>
-		            						</div>
-	            						</div>
-	            					</div>
-
-	            					<div class="form-group">
-	            						<div class="row clearfix">
-			            					<label class="col-md-4">Bayar</label>
-			            					<div class="col-md-8">
-			            						<div class="form-line">
-			            							<input class="form-control">
-		            							</div>
-		            						</div>
-	            						</div>
-	            					</div>
-
-	            					<div class="form-group">
-	            						<div class="row clearfix">
-			            					<label class="col-md-4">Kembali</label>
-			            					<div class="col-md-8">
-			            						<div class="form-line">
-			            							<input class="form-control">
-		            							</div>
-		            						</div>
-	            						</div>
-	            					</div>
-	            				</div>
 
 	            			</form>
 
