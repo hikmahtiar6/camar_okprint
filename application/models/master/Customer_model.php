@@ -33,6 +33,25 @@ class Customer_model extends CI_Model {
 		$get = $sql->get();
 		return $get->row();
 	}
+
+	public function save($data)
+	{
+		return $this->db->insert(static::TABLE, $data);
+	}
+
+	public function get_account($username, $password)
+	{
+		$sql = $this->db;
+
+		$sql->select('*');
+		$sql->from(static::TABLE);
+		$sql->where('cust_id', $username);
+		$sql->where('nama', $password);
+
+		$get = $sql->get();
+
+		return $get->row();
+	}
 }
 
 ?>

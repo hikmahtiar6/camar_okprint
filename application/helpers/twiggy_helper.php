@@ -1,5 +1,28 @@
 <?php
 
+function jenis_customer()
+{
+	$data = array(
+		array(
+			'id'   => 1,
+			'nama' => 'UMUM'
+		),
+		array(
+			'id'   => 2,
+			'nama' => 'KHUSUS'
+		),
+		array(
+			'id'   => 3,
+			'nama' => 'AGEN'
+		),
+		array(
+			'id'   => 4,
+			'nama' => 'NORMAL'
+		)
+	);
+	return $data;
+}
+
 function dump($dumping)
 {
 	return var_dump($dumping);
