@@ -2,16 +2,21 @@
 /**
  * Constroller Customer
  */
-class Customer extends CI_Controller 
+class Customer extends CI_Controller
 {
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model('master/customer_model');
+		$this->load->model('master/antrian_model');
+		$this->load->model('master/customer_service_model');
 	}
 
 	public function index()
 	{
+		$this->twiggy->set([
+			'last_antrian' => $this->antrian_model->get_antrian()
+		], null);
 		$this->twiggy->display('default/customer/index');
 	}
 
@@ -42,6 +47,18 @@ class Customer extends CI_Controller
 			'cs'			 => $cs,
 		);
 
+		$authorize_cs_auth = $this->customer_service_model->authorize($data['cs']);
+		if (false === $authorize_cs_auth)
+		{
+			$response = array(
+				'message' => 'CS Auth tidak valid',
+				'status' => 'warning'
+			);
+
+			$this->output->set_output(json_encode($response));
+			return;
+		}
+
 		$save = $this->customer_model->save($data);
 		if($save)
 		{
@@ -55,7 +72,7 @@ class Customer extends CI_Controller
 			$response = array(
 				'message' => 'Gagal Daftar Customer',
 				'status'  => 'error'
-			);	
+			);
 		}
 
 		return $this->output->set_output(json_encode($response));
@@ -65,11 +82,13 @@ class Customer extends CI_Controller
 	{
 		$username = $this->input->post('cust_id');
 		$password = $this->input->post('nama');
+		$antrian = $this->input->post('antrian');
 
 		$get_data_user = $this->customer_model->get_account($username, $password);
 		if($get_data_user)
 		{
 			$this->session->set_userdata('user_id', $get_data_user->cust_id);
+			$this->antrian_model->add($get_data_user->customer_id, $antrian);
 			$response = array(
 				'status'  => 'success',
 				'message' => 'Anda berhasil login'
@@ -80,7 +99,7 @@ class Customer extends CI_Controller
 			$response = array(
 				'status'  => 'error',
 				'message' => 'Customer ID atau nama salah, silahkan coba kembali'
-			);	
+			);
 		}
 
 		$this->output->set_output(json_encode($response));

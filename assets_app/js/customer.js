@@ -6,12 +6,15 @@ window.CUSTOMER = (function($) {
 			$('.customer-daftar').ajaxForm({
 				dataType: 'json',
 				success: function(response) {
-					swal(response.message,"", response.status);
-					
-					if(response.status == 'success') {
-                        window.location = $('.customer-daftar').attr('to_url');
-                    }
-
+					swal({
+						title: 'Konfirmasi',
+						text: response.message,
+						type: response.status
+					}, function(isConfirm) {
+						if (response.status === 'success') {
+							window.location = $('.customer-daftar').attr('to_url');
+						}
+					});
 				}
 			});
 		}
