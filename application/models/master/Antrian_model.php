@@ -5,7 +5,7 @@ class Antrian_model extends CI_Model
 	function get_antrian()
 	{
 		$date = date('Y-m-d');
-	
+
 		$db = $this->db;
 
 		$last_antrian = (int) $db->where('DATE(waktu)', $date)->get('tbl_antrian')->num_rows()+1;
@@ -19,7 +19,8 @@ class Antrian_model extends CI_Model
 			'antrian_id' => null,
 			'customer_id' => $customer_id,
 			'antrian' => $antrian,
-			'waktu' => date('Y-m-d H:i:s')
+			'waktu' => date('Y-m-d H:i:s'),
+			'status' => 'ANTRIAN'
 		]);
 	}
 }

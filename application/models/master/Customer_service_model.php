@@ -6,7 +6,7 @@ class Customer_service_model extends CI_Model
     {
         $db = $this->db;
 
-        $check = (int) $db->where('auth', md5($cs_auth))->get('tbl_customer_service')->num_rows();
+        $check = (int) $db->where('auth', $cs_auth)->get('tbl_customer_service')->num_rows();
 
         return $check === 1 ? true : false;
     }
