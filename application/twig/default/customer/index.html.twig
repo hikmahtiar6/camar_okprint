@@ -1,80 +1,76 @@
 {% extends 'admin/layout.html.twig' %}
 
 {% block title %}
-	Form Antrian Customer
+    Form Antrian Customer
 {% endblock %}
 
 {% block page_title %}
-	OKE PRINT
+    OKE PRINT
 {% endblock %}
 
-
-{% block content_title %}
-{% endblock %}
+{% block content_title %}{% endblock %}
 
 {% block content %}
-	
-	<div class="row clearfix">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	        <div class="card" style="width: 50%; margin: 0 auto !important;">
-	            <div class="header">
-	            	<h2>
-	            		Form Antrian Customer
-	            	</h2>
-	            </div>
-	            <div class="body" style="padding: 15px">
 
-	            	<form class="customer-daftar" method="post" action="{{ site_url('customer/login') }}" to_url="{{ site_url('admin/dashboard') }}">
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card" style="width: 50%; margin: 0 auto !important;">
+                <div class="header">
+                    <h2>
+                        Form Antrian Customer
+                    </h2>
+                </div>
+                <div class="body" style="padding: 15px">
 
-	            	<table class="table table-bordered">
-	            		<tr>
-	            			<td>
-	            				<label>CUSTOMER ID</label>
-	            			</td>
-	            			<td>
-	            				<input class="form-control" name="cust_id" type="text" required="">
-	            			</td>
-	            		</tr>
-	            		<tr>
-	            			<td>
-	            				<label>NAMA CUSTOMER</label>
-	            			</td>
-	            			<td>
-	            				<input class="form-control" name="nama" type="text" required="">
-	            			</td>
-	            		</tr>
-	            		<tr>
-	            			<td>
-	            				<label>NO. ANTRIAN</label>
-	            			</td>
-	            			<td>
-	            				<input class="form-control" type="text" name="antrian" value="{{ last_antrian }}">
-	            			</td>
-	            		</tr>
-	            		<tr>
-	            			<td>
-	            			</td>
-	            			<td>
-	            				<button class="btn btn-primary" type="submit">LOGIN</button>
-	            				<a class="btn btn-success" href="{{ site_url('customer/daftar') }}">DAFTAR</a>
-	            			</td>
-	            		</tr>
-	            	</table>
+                    <form onsubmit="return CUSTOMER.getAntrian()" class="customer-daftar" method="post" to_url="{{ site_url('admin/dashboard') }}">
 
-	            </div>
-	        </div>
-	    </div>
-	 </div>
+                        <table class="table table-bordered">
+                            <tr>
+                                <td>
+                                    <label>CUSTOMER ID</label>
+                                </td>
+                                <td>
+                                    <input class="form-control" name="cust_id" type="text" required="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>NAMA CUSTOMER</label>
+                                </td>
+                                <td>
+                                    <input class="form-control" name="nama" type="text" required="" readonly>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>NO. ANTRIAN</label>
+                                </td>
+                                <td>
+                                    <input class="form-control" type="text" name="antrian" readonly>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button class="btn btn-primary" type="submit">AMBIL ANTRIAN</button>
+                                </td>
+                                <td>
+                                    <a class="btn btn-success" href="{{ site_url('customer/daftar') }}">DAFTAR</a>
+                                </td>
+                            </tr>
+                        </table>
 
-{% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
 
+    {% endblock %}
 
-{% block javascript %}
-		
-	{{ parent() }}
-	<script type="text/javascript" src="{{ base_url('assets_app/js/customer.js') }}"></script>
-	<script type="text/javascript">
-		window.CUSTOMER.handleDaftar();
-	</script>
+    {% block javascript %}
+        {{ parent() }}
+        <script type="text/javascript" src="{{ base_url('assets_app/js/customer.js') }}"></script>
+        <script type="text/javascript">
+            //window.CUSTOMER.handleDaftar();
+        </script>
 
-{% endblock %}
+    {% endblock %}

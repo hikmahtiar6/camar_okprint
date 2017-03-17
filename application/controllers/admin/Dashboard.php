@@ -2,7 +2,7 @@
 /**
  * Transaction Controller
  */
-class Dashboard extends CI_Controller 
+class Dashboard extends CI_Controller
 {
 	/**
 	 * constructor
@@ -14,11 +14,13 @@ class Dashboard extends CI_Controller
 		// check session
 		$this->auth->_is_authentication();
 		$this->load->model('master_model');
+		$this->load->model('master/antrian_model');
 	}
 
 	public function index()
 	{
-		$this->twiggy->template('admin/dashboard/index')->display();
+		$this->twiggy->set('antrians', $this->antrian_model->get());
+		$this->twiggy->template('admin/dashboard/antrian')->display();
 	}
 
 	public function logout()

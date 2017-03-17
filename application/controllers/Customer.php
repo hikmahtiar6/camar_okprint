@@ -105,5 +105,28 @@ class Customer extends CI_Controller
 		$this->output->set_output(json_encode($response));
 	}
 
+	public function get_antrian()
+	{
+		$username = $this->input->post('cust_id');
+		$check_account = $this->customer_model->get_by_username($username);
+
+		if (null === $check_account)
+		{
+			return $this->output->set_output(json_encode([
+				'status' => 'error',
+				'message' => 'Customer ID Tidak ditemukan'
+			]));
+		}
+
+		$antrian = $this->antrian_model->generate_antrian($check_account);
+
+		$response = [
+			'nama' => $check_account->nama,
+			'antrian' => $antrian
+		];
+
+		return $this->output->set_output(json_encode($response));
+	}
+
 }
 ?>

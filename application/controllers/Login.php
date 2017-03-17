@@ -34,7 +34,7 @@ class Login extends CI_Controller
 		$get_data_user = $this->login_model->get_account($username, $password);
 		if($get_data_user)
 		{
-			$this->session->set_userdata('user_id', $get_data_user->user_id);
+			$this->session->set_userdata('user_id', $get_data_user->customer_service_id);
 			$response = array(
 				'status'  => 'success',
 				'message' => 'Anda berhasil login'
@@ -45,7 +45,7 @@ class Login extends CI_Controller
 			$response = array(
 				'status'  => 'error',
 				'message' => 'Username atau password salah, silahkan coba kembali'
-			);	
+			);
 		}
 
 		$this->output->set_output(json_encode($response));
@@ -65,8 +65,8 @@ class Login extends CI_Controller
 			if($this->login_model->insert_account($data))
 			{
 				echo "sukses tambah admin";
-			} 
-			else 
+			}
+			else
 			{
 				echo "gagal tambah admin";
 			}
@@ -76,7 +76,7 @@ class Login extends CI_Controller
 			echo "admin sudah ada";
 		}
 
-		
+
 	}
 }
 ?>

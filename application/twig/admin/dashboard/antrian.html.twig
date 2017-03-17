@@ -1,0 +1,116 @@
+{% extends 'admin/layout.html.twig' %}
+
+{% block content_title %}{% endblock %}
+
+{% block content %}
+
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        User :
+                        {{ get_user('username') }}
+                        ,
+                        <div class="pull-right">
+                            Tanggal:
+                            {{ "now"|date('d-m-Y') }}
+                        </div>
+                    </h2>
+                    <div class="clearfix">&nbsp;</div>
+                    <!--
+	                <ul class="header-dropdown m-r--5">
+	                    <li class="dropdown">
+	                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+	                            <i class="material-icons">more_vert</i>
+	                        </a>
+	                        <ul class="dropdown-menu pull-right">
+	                            <li><a href="javascript:void(0);">Action</a></li>
+	                            <li><a href="javascript:void(0);">Another action</a></li>
+	                            <li><a href="javascript:void(0);">Something else here</a></li>
+	                        </ul>
+	                    </li>
+	                </ul>
+	                -->
+                </div>
+                <div class="body">
+
+                    <div class="row clearfix">
+                        <table class="table table-stripped table-bordered table-hovered">
+                            <thead>
+                                <th>
+                                    NO.
+                                </th>
+                                <th>
+                                    TANGGAL
+                                </th>
+                                <th>
+                                    NO. ANTRIAN
+                                </th>
+                                <th>
+                                    NAMA CUSTOMER
+                                </th>
+                                <th>
+                                    JAM
+                                </th>
+                                <th>
+                                    STATUS
+                                </th>
+                            </thead>
+                            <tbody>
+                                {% for antrian in antrians %}
+                                <tr>
+                                    <td>
+                                        {{ loop.index }}
+                                    </td>
+                                    <td>
+                                        {{ antrian.waktu|date('d-m-Y') }}
+                                    </td>
+                                    <td>
+                                        {{ antrian.antrian }}
+                                    </td>
+                                    <td>
+                                        {{ antrian.nama }}
+                                    </td>
+                                    <td>
+                                        {{ antrian.waktu|date('H:i') }}
+                                    </td>
+                                    <td>
+                                        {{ antrian.status }}
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary" href="{{ site_url('admin/invoice/nonspk')}}">Transaksi</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script type="text/javascript">
+        setTimeout(function() {
+
+            var $body = $('body');
+            var $openCloseBar = $('.navbar .navbar-header .bars');
+            var width = $body.width();
+
+            /*if (width < 1100) {
+	            $body.addClass('ls-closed');
+	            $openCloseBar.fadeIn();
+	        }
+	        else {
+	            $body.removeClass('ls-closed');
+	            $openCloseBar.fadeOut();
+	        }*/
+        }, 500);
+    </script>
+{% endblock %}

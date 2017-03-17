@@ -52,6 +52,19 @@ class Customer_model extends CI_Model {
 
 		return $get->row();
 	}
+
+	public function get_by_username($username)
+	{
+		$db = $this->db;
+
+		$db->select('*');
+		$db->from(static::TABLE);
+		$db->where('cust_id', $username);
+
+		$get = $db->get();
+
+		return $get->row();
+	}
 }
 
 ?>

@@ -50,7 +50,7 @@ class Login_model extends CI_Model
 		$sql = $this->db;
 
 		$sql->select('*');
-		$sql->from(static::TABLE);
+		$sql->from('tbl_customer_service');
 		$sql->where('username', $username);
 		$sql->where('password', $password);
 
