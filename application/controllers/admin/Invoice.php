@@ -2,7 +2,7 @@
 /**
  * Invoice Controller
  */
-class Invoice extends CI_Controller 
+class Invoice extends CI_Controller
 {
 	/**
 	 * constructor
@@ -14,13 +14,14 @@ class Invoice extends CI_Controller
 		// check session
 		$this->auth->_is_authentication();
 		$this->load->model('master/customer_model');
+		$this->load->model('master/antrian_model');
 	}
 
-	public function nonspk()
+	public function nonspk($antrian_id)
 	{
-		$cust_data = $this->customer_model->get_data();
+		$antrian_data = $this->antrian_model->get_by_id($antrian_id);
 
-		$this->twiggy->set('cust_data', $cust_data);
+		$this->twiggy->set('antrian_data', $antrian_data);
 		$this->twiggy->template('admin/invoice/nonspk/index')->display();
 	}
 

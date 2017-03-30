@@ -79,7 +79,7 @@
                                         {{ antrian.status }}
                                     </td>
                                     <td>
-                                        <a class="btn btn-primary" href="{{ site_url('admin/invoice/nonspk')}}">Transaksi</a>
+                                        <a class="btn btn-primary" href="{{ site_url('admin/invoice/nonspk/' ~ antrian.antrian_id)}}">Transaksi</a>
                                     </td>
                                 </tr>
                                 {% endfor %}

@@ -2,6 +2,15 @@
 
 class Antrian_model extends CI_Model
 {
+	function get_by_id($id)
+	{
+		$db = $this->db;
+
+		$data = $db->select('*')->from('tbl_antrian')->join('tbl_customer', 'tbl_antrian.customer_id = tbl_customer.customer_id')->get()->row();
+
+		return $data;
+	}
+
 	function get_antrian()
 	{
 		$date = date('Y-m-d');
@@ -43,8 +52,9 @@ class Antrian_model extends CI_Model
 	function get()
 	{
 		$db = $this->db;
+		$today = date('Y-m-d');
 
-		$data = $db->select('*')->from('tbl_antrian')->join('tbl_customer', 'tbl_antrian.customer_id = tbl_customer.customer_id')->get()->result();
+		$data = $db->select('*')->from('tbl_antrian')->join('tbl_customer', 'tbl_antrian.customer_id = tbl_customer.customer_id')->like('DATE(tbl_antrian.waktu)', $today)->get()->result();
 
 		return $data;
 	}
