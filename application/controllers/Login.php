@@ -19,7 +19,6 @@ class Login extends CI_Controller
 	 */
 	public function index()
 	{
-		$this->twiggy->set('test', 'sample a');
 		$this->twiggy->display('default/login/layout');
 	}
 
@@ -47,7 +46,7 @@ class Login extends CI_Controller
 				'message' => 'Username atau password salah, silahkan coba kembali'
 			);
 		}
-
+		
 		$this->output->set_output(json_encode($response));
 	}
 

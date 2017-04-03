@@ -25,5 +25,8 @@ class Invoice extends CI_Controller
 		$this->twiggy->template('admin/invoice/nonspk/index')->display();
 	}
 
+	public function nonspk_save()
+	{
+		return $this->input->post();
+	}
 }
-?>

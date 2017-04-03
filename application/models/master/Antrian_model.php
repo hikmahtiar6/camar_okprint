@@ -6,7 +6,7 @@ class Antrian_model extends CI_Model
 	{
 		$db = $this->db;
 
-		$data = $db->select('*')->from('tbl_antrian')->join('tbl_customer', 'tbl_antrian.customer_id = tbl_customer.customer_id')->get()->row();
+		$data = $db->select('*')->from('tbl_antrian')->join('tbl_customer', 'tbl_antrian.customer_id = tbl_customer.customer_id')->where('tbl_antrian.antrian_id', $id)->get()->row();
 
 		return $data;
 	}

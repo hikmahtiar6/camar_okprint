@@ -1,11 +1,11 @@
 {% extends 'admin/layout.html.twig' %}
 
 {% block content_title %}
-	
+
 {% endblock %}
 
 {% block content %}
-	
+
 	<div class="row clearfix">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 	        <div class="card card-spk" style="width: 80%; margin: 0 auto !important;">
@@ -91,7 +91,7 @@
 	        	<form action="{{ site_url('admin/spk/index') }}" method="post">
 	        		<div class="form-group">
 	        			<label>Machine</label>
-		                    	
+
 	                    <select class="form-control" name="machine">
 	                        <option value="">-- Silahkan Pilih --</option>
 	                        {% if machine_data %}
@@ -104,14 +104,14 @@
 	                        	{% endfor %}
 
 	                        {% endif %}
-	                    </select>	
+	                    </select>
 
 	        		</div>
 
 	        		<div class="form-group">
 
 	        			<label>Week</label>
-		                    	
+
 	                    <select class="form-control week-options" name="week">
 	                        <option value="">-- Silahkan Pilih --</option>
 	                        {% if week_in_year() %}
@@ -134,7 +134,7 @@
 	                <div class="form-group">
 
 	        			<label>Shift</label>
-		                    	
+
 	                    <select class="form-control" name="shift">
 	                        <option value="0">-- Silahkan Pilih --</option>
 	                        {% if shift_data %}
@@ -166,7 +166,7 @@
 
         </div>
     </div>
-   
+
 
 {% endblock %}
 
