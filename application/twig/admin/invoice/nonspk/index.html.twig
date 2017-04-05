@@ -209,7 +209,7 @@
 	            					<td valign="top">
 	            						<label>Keterangan</label>
 	            						<br>
-	            						<textarea name="keterangan"></textarea>
+	            						<textarea name="keterangan_penjualan"></textarea>
 	            					</td>
 	            					<td>
 
@@ -318,7 +318,6 @@
 			addDetail: function() {
 				this.details.push(this.detailHolder);
 				this.detailHolder = [];
-				console.log(this.details);
 			}
 		}
 	});
@@ -326,7 +325,10 @@
 	$("form").ajaxForm({
 		dataType: 'json',
 		success: function(response) {
-			console.log(response);
+			swal({
+				title: 'Pemberitahuan',
+				text: response.message
+			});
 		}
 	});
 	</script>

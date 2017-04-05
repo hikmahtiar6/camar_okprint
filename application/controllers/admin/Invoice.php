@@ -44,5 +44,36 @@ class Invoice extends CI_Controller
 		];
 
 		$this->db->insert('tbl_header_jual', $params);
+		$header_jual_id = $this->db->insert_id();
+
+		$x = 0;
+		foreach($post['kode'] as $detail) {
+			if ('' === $detail) {
+				continue;
+			}
+
+			$params_detail = [
+				'header_jual_id' => $header_jual_id,
+				'kode' => $detail,
+				'nama_barang' => $post['nama_barang'][$x],
+				'keterangan' => $post['keterangan'][$x],
+				'satuan' => $post['satuan'][$x],
+				'qty' => $post['qty'][$x],
+				'p' => $post['p'][$x],
+				'l' => $post['l'][$x],
+				'harga' => $post['harga'][$x],
+				'disc' => $post['disc'][$x],
+				'discrp' => $post['discrp'][$x],
+				'jumlah' => $post['jumlah'][$x]
+			];
+
+			$this->db->insert('tbl_details_jual', $params_detail);
+			$x++;
+		}
+
+		$this->output->set_output(json_encode([
+			'status' => 'success',
+			'message' => 'Transaksi Berhasil'
+		]));
 	}
 }
