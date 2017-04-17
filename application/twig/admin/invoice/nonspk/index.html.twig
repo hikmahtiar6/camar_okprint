@@ -148,7 +148,7 @@
 	            						<td><% detail.harga %></td>
 	            						<td><input style="width:50px;" type="text" name="disc[]" v-model="detail.disc" v-on:keyup="calculateDiscRp(index)"></td>
 	            						<td><% detail.discrp %></td>
-	            						<td> <% detail.jumlah %></td>
+	            						<td> <% detail.jumlah %><input type="hidden" v-model="detail.token" v-on:keyup="calculateJumlah(index)"></td>
 	            					</tr>
 									</template>
 									<tr>
@@ -330,7 +330,8 @@
 				harga: '',
 				disc: '',
 				discrp: '',
-				jumlah: ''
+				jumlah: '',
+				token: ''
 			},
 			details: []
 		},
@@ -346,14 +347,15 @@
 				this.detailHolder.l = '';
 				this.detailHolder.harga = data.harga_jual;
 				this.detailHolder.disc = '';
-				this.detailHolder.discrp = '';
+				this.detailHolder.discrp = 0;
 				this.detailHolder.jumlah = 0;
+				this.detailHolder.token = '';
 
 				this.addDetail();
 			},
 			addDetail: function() {
 				this.details.push(this.detailHolder);
-				this.detailHolder = [];
+				this.detailHolder = {};
 			},
 			openBarangList: function() {
 				$("#modal-barang").modal('show');
@@ -365,8 +367,10 @@
 				this.calculateJumlah(index);
 			},
 			calculateJumlah: function(index) {
-				var el = this.details[index];
+				//ngakalin biar semua element bisa autocalculate
+				this.details[0].token = Math.random();
 
+				var el = this.details[index];
 				el.jumlah = ((el.qty * el.p * el.l) * el.harga) - (el.qty * el.p * el.l) * el.discrp;
 			}
 		}
