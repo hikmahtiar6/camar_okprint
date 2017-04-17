@@ -21,6 +21,8 @@ class Invoice extends CI_Controller
 	{
 		$antrian_data = $this->antrian_model->get_by_id($antrian_id);
 
+		$barangs = $this->db->query("SELECT * FROM tbl_barang")->result();
+		$this->twiggy->set('barangs', $barangs);
 		$this->twiggy->set('antrian_data', $antrian_data);
 		$this->twiggy->template('admin/invoice/nonspk/index')->display();
 	}
