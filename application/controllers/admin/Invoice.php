@@ -17,13 +17,12 @@ class Invoice extends CI_Controller
 		$this->load->model('master/antrian_model');
 	}
 
-	public function nonspk($antrian_id)
+	public function nonspk()
 	{
-		$antrian_data = $this->antrian_model->get_by_id($antrian_id);
-
+		$customers = $this->db->query("SELECT * FROM tbl_customer")->result();
 		$barangs = $this->db->query("SELECT * FROM tbl_barang")->result();
 		$this->twiggy->set('barangs', $barangs);
-		$this->twiggy->set('antrian_data', $antrian_data);
+		$this->twiggy->set('customers', $customers);
 		$this->twiggy->template('admin/invoice/nonspk/index')->display();
 	}
 

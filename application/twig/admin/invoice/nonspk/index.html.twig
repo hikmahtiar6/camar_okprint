@@ -3,6 +3,11 @@
 {% block content_title %}
 {% endblock %}
 
+{% block stylesheet %}
+{{ parent() }}
+	<link rel="stylesheet" href="{{ base_url('web/vendor/select2/dist/css/select2.css') }}">
+{% endblock %}
+
 {% block content %}
 <div id="app">
 <form class="transaction-form" method="POST" action="{{ site_url('admin/invoice/nonspk_save') }}">
@@ -27,8 +32,12 @@
 	            					</td>
 	            					<td width="300">
 	            						<div class="form-line">
-											<input type="text" name="customer_name" class="form-control" value="{{ antrian_data.nama }}" readonly>
-											<input type="hidden" name="customer_id" class="form-control" value="{{ antrian_data.customer_id }}" readonly>
+											<select name="customer_id" id="cari-customer" class="form-control">
+												<option value="">Pilih Customer</option>
+												{% for customer in customers %}
+												<option value="{{ customer.customer_id }}">{{ customer.nama }}</option>
+												{% endfor %}
+											</select>
             							</div>
 	            					</td>
 	            					<td width="200" rowspan="4" valign="top" style="padding-left: 10px;">
@@ -149,6 +158,7 @@
 	            						<td><input style="width:50px;" type="text" name="disc[]" v-model="detail.disc" v-on:keyup="calculateDiscRp(index)"></td>
 	            						<td><% detail.discrp %></td>
 	            						<td> <% detail.jumlah %><input type="hidden" v-model="detail.token" v-on:keyup="calculateJumlah(index)"></td>
+										<td><a class="btn btn-danger" v-on:click="hapus(index)">Hapus</a>
 	            					</tr>
 									</template>
 									<tr>
@@ -333,7 +343,8 @@
 				jumlah: '',
 				token: ''
 			},
-			details: []
+			details: [],
+
 		},
 		methods: {
 			addBarang: function(data) {
@@ -372,6 +383,9 @@
 
 				var el = this.details[index];
 				el.jumlah = ((el.qty * el.p * el.l) * el.harga) - (el.qty * el.p * el.l) * el.discrp;
+			},
+			hapus: function(index) {
+				var el = this.details.splice(index, 1);
 			}
 		}
 	});
@@ -385,5 +399,7 @@
 			});
 		}
 	});
+	$("#cari-customer").select2();
 	</script>
+	<script src="{{ base_url('web/vendor/select2/dist/js/select2.js') }}"></script>
 {% endblock %}
