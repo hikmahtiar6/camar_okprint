@@ -62,7 +62,7 @@ function same($word1, $word2)
 	}
 }
 
-function create_date_range($strDateFrom, $strDateTo) 
+function create_date_range($strDateFrom, $strDateTo)
 {
 	$aryRange=array();
 
@@ -84,7 +84,7 @@ function create_date_range($strDateFrom, $strDateTo)
 function convert_dice($dice)
 {
 	$dice_txt = ($dice == null) ? '' : $dice;
-	
+
 	$txt = '';
 	$expl = explode(",", $dice_txt);
 
@@ -125,12 +125,12 @@ function get_date_start_header($header_id, $show, $other)
 	$data = $ci->detail_model->get_date_start($header_id);
 	if($data->date_start_header != NULL)
 	{
-		$result = $data->date_start_header; 
+		$result = $data->date_start_header;
 	}
 
 	if($show != '')
 	{
-		$result = str_replace("/", "-", $show); 
+		$result = str_replace("/", "-", $show);
 	}
 
 	return date('d-m-Y', strtotime($result));
@@ -157,7 +157,7 @@ function get_date_finish_header($header_id, $show, $other)
 
 	if($show != '')
 	{
-		$result = str_replace("/", "-", $show); 
+		$result = str_replace("/", "-", $show);
 	}
 
 	return date('d-m-Y', strtotime($result));
@@ -169,7 +169,7 @@ function date_to_time($date)
 }
 
 function week_in_year() {
-	
+
 	$dt = [];
 	$year           = date('Y');
 	$yearEnd           = date('Y');
@@ -190,7 +190,7 @@ function week_in_year() {
 	$firstDayOfYear = mktime(0, 0, 0, $startMonth, 1, $year);
 	$nextMonday     = strtotime('monday', $firstDayOfYear);
 	$nextSunday     = strtotime('sunday', $nextMonday);
-	
+
 	while (date('Y', $nextMonday) == $year) {
 
 		$date_start  = date('d/m/Y', $nextMonday);
@@ -200,15 +200,15 @@ function week_in_year() {
 			$dt[] =  array(
 				'date_start'  => $date_start,
 				'date_finish' => $date_finish
-			);	
+			);
 		}
-	
+
 		$nextMonday = strtotime('+1 week', $nextMonday);
 		$nextSunday = strtotime('+1 week', $nextSunday);
-		
+
 	}
-	
-	return $dt;	
+
+	return $dt;
 }
 
 function add_zero($numbering)
@@ -223,12 +223,12 @@ function add_zero($numbering)
  */
 function indonesian_date($date){
 	$bln_indo = array("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember");
- 
+
 	$tahun = substr($date, 0, 4);
 	$bulan = substr($date, 5, 2);
 	$tgl   = substr($date, 8, 2);
- 
-	$result = $tgl . " " . $bln_indo[(int)$bulan-1] . " ". $tahun;		
+
+	$result = $tgl . " " . $bln_indo[(int)$bulan-1] . " ". $tahun;
 	return($result);
 }
 
@@ -236,6 +236,11 @@ function indonesia_day($date)
 {
 	$array_hari = array(1=>"Senin","Selasa","Rabu","Kamis","Jumat", "Sabtu","Minggu");
 	return $array_hari[date('N', strtotime($date))];
+}
+
+function dynamic_array_key($array, $key)
+{
+	return $array[$key];
 }
 
 ?>

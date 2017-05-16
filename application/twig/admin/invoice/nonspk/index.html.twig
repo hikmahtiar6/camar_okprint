@@ -1,333 +1,410 @@
-{% extends 'admin/layout.html.twig' %}
-
-{% block content_title %}
-{% endblock %}
-
-{% block stylesheet %}
-{{ parent() }}
-	<link rel="stylesheet" href="{{ base_url('web/vendor/select2/dist/css/select2.css') }}">
-{% endblock %}
-
-{% block content %}
+{% extends 'admin/layout.html.twig' %} {% block content_title %} {% endblock %} {% block stylesheet %} {{ parent() }}
+<link rel="stylesheet" href="{{ base_url('web/vendor/select2/dist/css/select2.css') }}">
+<link rel="stylesheet" href="{{ base_url('web/vendor/datatables/media/css/dataTables.bootstrap4.css') }}">
+<link rel="stylesheet" href="{{ base_url('web/vendor/toastr/toastr.css') }}"> {% endblock %} {% block content %}
 <div id="app">
-<form class="transaction-form" method="POST" action="{{ site_url('admin/invoice/nonspk_save') }}">
-	<div class="row clearfix">
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-	        <div class="card" style="width: 80%; margin: 0 auto !important;">
-	            <div class="header">
-	            	<h2>
+	<form class="transaction-form">
+		<div class="row clearfix">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="card" style="margin: 0 auto !important;">
+					<div class="header">
+						<h2>
 	            		Form Pengisian Penjualan
 	            	</h2>
-	            </div>
-	            <div class="body" style="padding: 15px">
+					</div>
+					<div class="body" style="padding: 15px">
 
-	            	<div class="row clearfix">
+						<div class="row clearfix">
 
-	            		<div class="col-md-12">
+							<div class="col-md-12">
 
-	            			<table border="0" cellpadding="0" cellspacing="0" class="" style="width: 100%">
-	            				<tr>
-	            					<td>
-	            						<label>Customer</label>
-	            					</td>
-	            					<td width="300">
-	            						<div class="form-line">
-											<select name="customer_id" id="cari-customer" class="form-control">
+								<table border="0" cellpadding="0" cellspacing="0" class="" style="width: 100%">
+									<tr>
+										<td>
+											<label>Customer</label>
+										</td>
+										<td width="300">
+											<div class="form-line">
+												<select name="customer_id" id="cari-customer" class="form-control" onchange="APP.getCustomerGroup(this.value)">
 												<option value="">Pilih Customer</option>
 												{% for customer in customers %}
 												<option value="{{ customer.customer_id }}">{{ customer.nama }}</option>
 												{% endfor %}
 											</select>
-            							</div>
-	            					</td>
-	            					<td width="200" rowspan="4" valign="top" style="padding-left: 10px;">
+											</div>
+										</td>
+										<td width="200" rowspan="4" valign="top" style="padding-left: 10px;">
 
-	            					</td>
-	            					<td>
-		            					<label>Tgl. Jual</label>
-		            				</td>
-		            				<td>
-            							<div class="form-line">
-            								<input class="form-control" type="text" name="tgl_jual" value="{{ "now"|date('Y-m-d') }}">
-            							</div>
-	            					</td>
-	            				</tr>
+										</td>
+										<td>
+											<label>Tgl. Jual</label>
+										</td>
+										<td>
+											<div class="form-line">
+												<input class="form-control" type="text" v-model="tanggalJual">
+											</div>
+										</td>
+									</tr>
 
-	            				<tr>
-	            					<td>
-		            					<label>Nomor SPK</label>
-		            				</td>
-		            				<td>
-            							<div class="form-line">
-            								<input class="form-control" type="text" name="no_spk">
-            							</div>
-		            				</td>
-		            				<td>
-	            						<label>Status</label>
-	            					</td>
-	            					<td>
+									<tr>
+										<td>
+											<label>Nomor SPK</label>
+										</td>
+										<td>
+											<div class="form-line">
+												<input class="form-control" type="text" v-model="noSpk">
+											</div>
+										</td>
+										<td>
+											<label>Status</label>
+										</td>
+										<td>
 
-            							<div class="form-line">
-            								<select class="form-control" name="status">
+											<div class="form-line">
+												<select class="form-control" v-model="status">
             									<option>-Silahkan pilih-</option>
-            									<option>Cash</option>
-            									<option>Kredit</option>
+            									<option value="cash" selected>Cash</option>
+            									<option value="kredit">Kredit</option>
             								</select>
-            							</div>
-		            				</td>
-	            				</tr>
+											</div>
+										</td>
+									</tr>
 
-	            				<tr>
-	            					<td>
-		            					<label>Nomor Jual</label>
-		            				</td>
-		            				<td>
-            							<div class="form-line">
-            								<input class="form-control" type="text" name="no_jual">
-            							</div>
-		            				</td>
+									<tr>
+										<td>
+											<label>Nomor Jual</label>
+										</td>
+										<td>
+											<div class="form-line">
+												<input class="form-control" type="text" v-model="noJual">
+											</div>
+										</td>
 
-		            				<td>
-	            						<label>Jatuh Tempo</label>
-	            					</td>
-	            					<td>
-            							<div class="form-line">
-            								<input class="form-control" type="text" name="jatuh_tempo">
-            							</div>
-		            				</td>
-	            				</tr>
+										<td>
+											<label>Tempo (Hari)</label>
+										</td>
+										<td>
+											<div class="form-line">
+												<input class="form-control" type="text" v-model="jatuhTempoHari">
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2">&nbsp;</td>
+										<td><label>Jatuh Tempo</label></td>
+										<td>
+											<div class="form-line">
+												<input class="form-control" type="text" v-model="jatuhTempoTanggal" v-on:focus="calculateJatuhTempo">
+											</div>
+										</td>
+									</tr>
 
-	            			</table>
+								</table>
 
 
 
 
-							<br>
-							<div class="table-responsive">
-							<table class="table table-bordered table-stripped table-hovered">
-	            				<thead>
-	            					<tr>
-	            					<th>
-	            						Kode
-	            					</th>
-	            					<th>
-	            						Nama<br>Barang
-	            					</th>
-	            					<th>
-	            						Ket
-	            					</th>
-	            					<th>
-	            						Satuan
-	            					</th>
-	            					<th>
-	            						Qty
-	            					</th>
-	            					<th>
-	            						P
-	            					</th>
-	            					<th>
-	            						L
-	            					</th>
-	            					<th>
-	            						Harga
-	            					</th>
-	            					<th>
-	            						Disc %
-	            					</th>
-	            					<th>
-	            						Disc Rp
-	            					</th>
-	            					<th>
-	            						Jumlah
-	            					</th>
+								<br>
+								<a class="btn btn-primary" data-keyboard="true" v-on:click="openBarangList">Tambah Barang</a>
+								<div class="table-responsive">
+									<table class="table table-bordered table-stripped table-hovered">
+										<thead>
+											<tr>
+												<th width="6%">
+													Kode
+												</th>
+												<th width="20%">
+													Nama Barang
+												</th>
+												<th width="20%">
+													Ket
+												</th>
+												<th>
+													Satuan
+												</th>
+												<th>
+													Qty
+												</th>
+												<th>
+													P
+												</th>
+												<th>
+													L
+												</th>
+												<th>
+													Harga
+												</th>
+												<th>
+													Disc %
+												</th>
+												<th>
+													Disc Rp
+												</th>
+												<th>
+													Jumlah
+												</th>
 
-	            				</tr>
-	            				</thead>
+											</tr>
+										</thead>
 
-	            				<tbody>
-									<template v-for="(detail, index) in details">
-	            					<tr>
-	            						<td><% detail.kode %></td>
-	            						<td><% detail.namaBarang %></td>
-	            						<td><input style="width:100px;" type="text" v-model="detail.keterangan"></td>
+										<tbody>
+											<template v-for="(detail, index) in details">
+									<tr>
+	            						<td><% detail.kode %><input type="hidden" name="kode[]" v-model="detail.kode"><input type="hidden" name="tbl_barang_id[]" v-model="detail.barangId"></td>
+	            						<td><% detail.namaBarang %><input type="hidden" name="nama_barang[]" v-model="detail.namaBarang"></td>
+	            						<td><input type="text" name="keterangan[]" v-model="detail.keterangan"></td>
 	            						<td><% detail.satuan %></td>
-	            						<td><input style="width:50px;" type="text" v-model="detail.qty" v-on:keyup="calculateJumlah(index)"></td>
-	            						<td><input style="width:100px;" type="text" v-model="detail.p" v-on:keyup="calculateJumlah(index)"></td>
-	            						<td><input style="width:100px;" type="text" v-model="detail.l" v-on:keyup="calculateJumlah(index)"></td>
-	            						<td><% detail.harga %></td>
+	            						<td><input style="width:50px;" name="qty[]" type="text" v-model="detail.qty" v-on:keyup="calculateJumlah(index)"></td>
+	            						<td><input style="width:50px;" name="p[]" type="text" v-model="detail.p" v-on:keyup="calculateJumlah(index)"></td>
+	            						<td><input style="width:50px;" name="l[]" type="text" v-model="detail.l" v-on:keyup="calculateJumlah(index)"></td>
+	            						<td><% detail.harga %><input type="hidden" name="harga[]" v-model="detail.harga"></td>
 	            						<td><input style="width:50px;" type="text" name="disc[]" v-model="detail.disc" v-on:keyup="calculateDiscRp(index)"></td>
-	            						<td><% detail.discrp %></td>
+	            						<td><% detail.discrp %><input type="hidden" name="discrp[]" v-model="detail.discrp"></td>
 	            						<td> <% detail.jumlah %><input type="hidden" v-model="detail.token" v-on:keyup="calculateJumlah(index)"></td>
-										<td><a class="btn btn-danger" v-on:click="hapus(index)">Hapus</a>
+										<td><a class="btn btn-danger" v-on:click="hapus(index)">X</a>
 	            					</tr>
 									</template>
+										</tbody>
+									</table>
+								</div>
+								<br>
+
+								<table cellpadding="0" cellspacing="0" border="0" style="width: 100%">
 									<tr>
-										<td colspan="11"><a class="btn btn-primary" v-on:click="openBarangList">Tambah Item</a></td>
+										<td valign="top">
+											<a v-on:click="postTransaksi" class="btn btn-primary" style="height: 60px;"><span style="margin-top: 30px;">Proses</span></a>
+											<button class="btn btn-warning" style="height: 60px;">Tunda</button>
+										</td>
+										<td valign="top">
+											<label>Keterangan</label>
+											<br>
+											<textarea name="keterangan_penjualan"></textarea>
+										</td>
+										<td>
+
+											<table>
+												<tr>
+													<td>
+														<label>Total</label>
+													</td>
+													<td style="padding-right: 20px;">
+														<div class="form-line">
+															<input style="width: 200px;" readonly class="form-control number" name="master_total" v-model="masterTotal">
+														</div>
+													</td>
+													<td>
+														<label>Discount</label>
+													</td>
+													<td style="padding-right: 20px;">
+														<div class="form-line">
+															<input style="width: 200px;" class="form-control number" v-model="discount" name="discount">
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<label>Tambahan</label>
+													</td>
+													<td style="padding-right: 20px;">
+														<div class="form-line">
+															<input style="width: 200px;" class="form-control number" v-model="tambahan" name="tambahan">
+														</div>
+													</td>
+													<td>
+														<label>Netto</label>
+													</td>
+													<td>
+														<div class="form-line">
+															<input style="width: 200px;" v-on:focus="hitungNetto()" class="form-control number" name="netto" v-model="netto">
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<label>Bayar<label>
+													</td>
+													<td>
+														<div class="form-line">
+															<input style="width: 200px;" class="form-control number" v-model="bayar" name="bayar">
+														</div>
+													</td>
+													<td>
+														<label>Sisa</label>
+													</td>
+													<td>
+														<div class="form-line">
+															<input style="width: 200px;" v-on:focus="hitungSisa()" class="form-control number" name="sisa" v-model="sisa">
+														</div>
+													</td>
+												</tr>
+											</table>
+										</td>
 									</tr>
-								</tbody>
-	            			</table>
+								</table>
+							</div>
 						</div>
-	            			<br>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div id="modal-barang" class="modal fade" role="dialog" tabindex="-1">
+		<div class="modal-dialog modal-lg">
 
-	            			<table cellpadding="0" cellspacing="0" border="0" style="width: 100%">
-	            				<tr>
-	            					<td valign="top">
-		            					<input type="submit" class="btn btn-primary" style="height: 60px;" value="Proses"/>
-		            					<button class="btn btn-warning" style="height: 60px;">Tunda</button>
-	            					</td>
-	            					<td valign="top">
-	            						<label>Keterangan</label>
-	            						<br>
-	            						<textarea name="keterangan_penjualan"></textarea>
-	            					</td>
-	            					<td>
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">List Barang</h4>
+				</div>
+				<div class="modal-body">
+					<table class="table table-stripped table-bordered" id="table-barang">
+						<thead>
+							<tr>
+								<th>
+									Kode Barang
+								</th>
+								<th>
+									Nama Barang
+								</th>
+								<th>
+									Satuan
+								</th>
+								<th>
+									Harga
+								</th>
+								<th>
+									Action
+								</th>
+							</tr>
+						</thead>
+						<!--
+							{% for barang in barangs %}
+							<tr>
+								<td>
+									{{ barang.kode }}
+								</td>
+								<td>
+									{{ barang.nama }}
+								</td>
+								<td>
+									{{ barang.sat }}
+								</td>
+								<td>
+									{{ barang.harga_jual }}
+								</td>
+								<td>
+									<a class="btn btn-primary" v-on:click='addBarang({{ barang|json_encode }})'>Tambah</a>
+								</td>
+							</tr>
+							{% endfor %}
+						-->
+						<tbody>
+							<template v-for="barang in barangs">
+							<tr>
+								<td>
+									<% barang.kode %>
+								</td>
+								<td>
+									<% barang.nama %>
+								</td>
+								<td>
+									<% barang.sat %>
+								</td>
+								<td>
+									<% barang.harga_jual %>
+								</td>
+								<td>
+									<a class="btn btn-primary" v-on:click="addBarang(barang)">Tambah</a>
+								</td>
+							</tr>
+						</template>
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
 
-	            					<table>
-	            						<tr>
-	            							<td>
-	            								<label>Total</label>
-	            							</td>
-	            							<td style="padding-right: 20px;">
-	            								<div class="form-line">
-			            							<input class="form-control" name="total">
-		            							</div>
-	            							</td>
-	            							<td>
-	            								<label>Netto</label>
-	            							</td>
-	            							<td>
-	            								<div class="form-line">
-			            							<input class="form-control" name="netto">
-		            							</div>
-	            							</td>
-	            						</tr>
-	            						<tr>
-	            							<td>
-	            								<label>Discount</label>
-	            							</td>
-	            							<td style="padding-right: 20px;">
-	            								<div class="form-line">
-			            							<input class="form-control" name="discount">
-		            							</div>
-	            							</td>
-	            							<td>
-	            								<label>Bayar</label>
-	            							</td>
-	            							<td>
-	            								<div class="form-line">
-			            							<input class="form-control" name="bayar">
-		            							</div>
-	            							</td>
-	            						</tr>
-	            						<tr>
-	            							<td>
-	            								<label>Charge</label>
-	            							</td>
-	            							<td style="padding-right: 20px;">
-	            								<div class="form-line">
-			            							<input class="form-control" name="charge">
-		            							</div>
-	            							</td>
-	            							<td>
-	            								<label>Sisa</label>
-	            							</td>
-	            							<td>
-	            								<div class="form-line">
-			            							<input class="form-control" name="sisa">
-		            							</div>
-	            							</td>
-	            						</tr>
-	            					</table>
-
-	            					</td>
-	            				</tr>
-	            			</table>
-
-	            			<form>
-
-
-	            			</form>
-
-
-	            		</div>
-
-	            	</div>
-
-	            </div>
-	        </div>
-	    </div>
-	 </div>
-</form>
-<div id="modal-barang" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-	<!-- Modal content-->
-	<div class="modal-content">
-	  <div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">&times;</button>
-		<h4 class="modal-title">List Barang</h4>
-	  </div>
-	  <div class="modal-body">
-		<table class="table table-stripped table-bordered">
-			<thead>
-				<tr>
-					<th>
-						Kode Barang
-					</th>
-					<th>
-						Nama Barang
-					</th>
-					<th>
-						Satuan
-					</th>
-					<th>
-						Harga Jual
-					</th>
-					<th>
-						Action
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for barang in barangs %}
-					<tr>
-						<td>
-							{{ barang.kode }}
-						</td>
-						<td>
-							{{ barang.nama }}
-						</td>
-						<td>
-							{{ barang.sat }}
-						</td>
-						<td>
-							{{ barang.harga_jual }}
-						</td>
-						<td>
-							<a class="btn btn-primary" v-on:click='addBarang({{ barang|json_encode }})'>Tambah</a>
-						</td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	  </div>
-	  <div class="modal-footer">
-		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	  </div>
+		</div>
 	</div>
 
-  </div>
-</div>
-</div>
-{% endblock %}
+	<div id="modal-pembayaran" class="modal fade" role="dialog" tabindex="-1">
+		<div class="modal-dialog modal-sm">
 
-{% block javascript %}
-	{{ parent() }}
-	<script type="text/javascript">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Pembayaran</h4>
+				</div>
+				<div class="modal-body">
+					<table class="table table-stripped">
+						<tr>
+							<td width="30%"><b>Total</b></td>
+							<td width="1%">:</td>
+							<td width="69%"><b><% masterTotal %><b></td>
+						</tr>
+						<tr>
+							<td><b>Jenis Bayar</b></td>
+							<td>:</td>
+							<td>
+								<select class="form-control">
+									<option value="bca">BCA</option>
+									<option value="non_bca">NON-BCA</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td><b>Jumlah Bayar</b></td>
+							<td width="1%">:</td>
+							<td><input type="text" name="jumlah_bayar" v-model="jumlahBayar" class="form-control"></td>
+						</tr>
+						<tr>
+							<td><b>Card Charge</b></td>
+							<td width="1%">:</td>
+							<td><input type="text" name="card_charge" v-model="cardCharge" class="form-control"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %} {% block javascript %} {{ parent() }}
+<script src="{{ base_url('assets_app/js/jquery.number.js') }}"></script>
+<script type="text/javascript">
+	function integerify(string) {
+		if ('' === string) {
+			return 0;
+		}
+
+		var string = string.toString().split('.').join('');
+		var string = string.toString().split(',').join('');
+
+		return parseInt(string);
+	}
+
 	window.APP = new Vue({
 		el: '#app',
-		delimiters: ["<%","%>"],
+		delimiters: ["<%", "%>"],
 		data: {
+			barangs: null,
+			tanggalJual: '{{ "now"|date("d/m/Y") }}',
+			noSpk: '',
+			status: 'cash',
+			noJual: '',
+			jatuhTempoHari: '',
+			jatuhTempoTanggal: '',
+			masterTotal: '',
+			netto: '',
+			tambahan: '',
+			discount: '',
+			jumlahBayar: '',
+			cardCharge: '',
+			sisa: '',
+			customerGroup: '',
 			detailHolder: {
 				barangId: '',
 				kode: '',
@@ -348,21 +425,23 @@
 		},
 		methods: {
 			addBarang: function(data) {
-				this.detailHolder.barangId = data.tbl_barang_id;
+				this.detailHolder.barangId = data.barang_id;
 				this.detailHolder.kode = data.kode;
 				this.detailHolder.namaBarang = data.nama;
 				this.detailHolder.keterangan = '';
 				this.detailHolder.satuan = data.sat;
-				this.detailHolder.qty = '';
-				this.detailHolder.p = '';
-				this.detailHolder.l = '';
+				this.detailHolder.qty = 1;
+				this.detailHolder.p = 1;
+				this.detailHolder.l = 1;
 				this.detailHolder.harga = data.harga_jual;
 				this.detailHolder.disc = '';
 				this.detailHolder.discrp = 0;
-				this.detailHolder.jumlah = 0;
+				this.detailHolder.jumlah = data.harga_jual;
 				this.detailHolder.token = '';
 
 				this.addDetail();
+				this.calculateMasterTotal();
+				toastr.success('Barang ditambahkan');
 			},
 			addDetail: function() {
 				this.details.push(this.detailHolder);
@@ -374,7 +453,7 @@
 			calculateDiscRp: function(index) {
 				var el = this.details[index];
 
-				el.discrp = (el.harga / 100) * el.disc;
+				el.discrp = (integerify(el.harga) / 100) * integerify(el.disc);
 				this.calculateJumlah(index);
 			},
 			calculateJumlah: function(index) {
@@ -382,24 +461,110 @@
 				this.details[0].token = Math.random();
 
 				var el = this.details[index];
-				el.jumlah = ((el.qty * el.p * el.l) * el.harga) - (el.qty * el.p * el.l) * el.discrp;
+				el.jumlah = (( integerify(el.qty) * integerify(el.p) * integerify(el.l) ) * integerify(el.harga)) - (integerify(el.qty) * integerify(el.p) * integerify(el.l)) * integerify(el.discrp);
+				el.jumlah = el.jumlah;
+				this.calculateMasterTotal();
+			},
+			calculateMasterTotal: function() {
+				var result = 0;
+				jQuery.each(this.details, function(k, v) {
+					var a = integerify(result);
+					var b = integerify(v.jumlah);
+
+					result = a + b;
+				});
+
+				this.masterTotal = result;
+			},
+			calculateJatuhTempo: function() {
+				var today = new Date();
+				var jatuhTempo = today.setDate(today.getDate()+parseInt(this.jatuhTempoHari));
+				var date = new Date(jatuhTempo);
+
+				var day = date.getDate();
+				var month = this._padDigits(date.getMonth()+1, 2);
+				var year = date.getFullYear();
+
+				this.jatuhTempoTanggal = day+'/'+month+'/'+year;
 			},
 			hapus: function(index) {
 				var el = this.details.splice(index, 1);
-			}
-		}
-	});
+				this.calculateMasterTotal();
+				toastr.error('Barang dihapus');
+			},
+			getCustomerGroup: function(id) {
+				var that = this;
+				if ('' === id) {
+					return;
+				}
+				$.ajax({
+					type: 'GET',
+					url: '{{ site_url("admin/invoice/get_customer_group") }}' + "/" + id,
+					success: function(response) {
+						that.customerGroup = response;
+						that.initBarang(response);
+					}
+				});
+			},
+			initBarang: function(group = '') {
+				var that = this;
+				$.ajax({
+					type: 'GET',
+					url: '{{ site_url("admin/invoice/get_barangs") }}' + '/' + group,
+					success: function(response) {
+						var data = JSON.parse(response);
+						that.barangs = data;
+						setTimeout(function() {
+							$("#table-barang").DataTable();
+						}, 500);
+					}
+				});
+			},
+			openPembayaran: function() {
+				var result = integerify(this.masterTotal) + integerify(this.tambahan) - integerify(this.discount);
+				this.netto = result;
+				$("#modal-pembayaran").modal('show');
+			},
+			hitungNetto: function() {
+				var result = integerify(this.masterTotal) + integerify(this.tambahan) - integerify(this.discount);
+				this.netto = result;
+			},
+			hitungSisa: function() {
+				this.hitungNetto();
+				var result = this.bayar - this.netto;
 
-	$("form").ajaxForm({
-		dataType: 'json',
-		success: function(response) {
-			swal({
-				title: 'Pemberitahuan',
-				text: response.message
-			});
+				this.sisa = result;
+			},
+			postTransaksi: function() {
+				var that = this;
+
+				$.ajax({
+					type: 'POST',
+					url: '{{ site_url("admin/invoice/nonspk_save") }}',
+					data: {
+						trans: that.details,
+						total: that.masterTotal,
+						discount: that.discount,
+						tambahan: that.tambahan,
+						netto: that.netto,
+						bayar: that.jumlahBayar,
+						sisa: that.sisa
+					}
+				});
+			},
+			_padDigits: function(number, digits) {
+    			return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
+			}
+		},
+		beforeMount: function() {
+			this.initBarang();
 		}
 	});
 	$("#cari-customer").select2();
-	</script>
-	<script src="{{ base_url('web/vendor/select2/dist/js/select2.js') }}"></script>
+	//$(".number").number(true, 0, ',', '.');
+</script>
+<script src="{{ base_url('web/vendor/select2/dist/js/select2.js') }}"></script>
+<script src="{{ base_url('web/vendor/datatables/media/js/jquery.dataTables.js') }}"></script>
+<script src="{{ base_url('web/vendor/datatables/media/js/dataTables.bootstrap4.js') }}"></script>
+<script src="{{ base_url('web/vendor/toastr/toastr.js') }}"></script>
 {% endblock %}

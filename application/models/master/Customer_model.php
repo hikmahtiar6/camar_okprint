@@ -28,6 +28,7 @@ class Customer_model extends CI_Model {
 
 		$sql->select('*');
 		$sql->from(static::TABLE);
+		$sql->join('tbl_customer_group', 'tbl_customer_group.customer_group_id = tbl_customer.customer_group_id');
 		$sql->where('customer_id', $id);
 
 		$get = $sql->get();

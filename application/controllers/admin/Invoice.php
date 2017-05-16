@@ -15,6 +15,7 @@ class Invoice extends CI_Controller
 		$this->auth->_is_authentication();
 		$this->load->model('master/customer_model');
 		$this->load->model('master/antrian_model');
+		$this->load->model('master/barang_model');
 	}
 
 	public function nonspk()
@@ -26,6 +27,38 @@ class Invoice extends CI_Controller
 		$this->twiggy->template('admin/invoice/nonspk/index')->display();
 	}
 
+	public function get_customer_group($customer_id)
+	{
+		$data = $this->customer_model->get_data_by_id($customer_id);
+		if (property_exists($data, 'group_name')) {
+			echo $data->group_name;
+			return;
+		}
+
+		echo 'NORMAL';
+	}
+
+	public function get_barangs($group_name = 'NORMAL')
+	{
+		$data = $this->barang_model->find_all();
+
+		foreach($data as &$d) {
+			$harga_jual = json_decode($d->harga_jual);
+			$d->harga_jual = $harga_jual->{$group_name};
+		}
+
+		echo json_encode($data);
+	}
+
+	public function nonspk_save()
+	{
+		$data = $this->input->post();
+		foreach($data['trans'] as $trans) {
+			echo json_encode($trans);
+		}
+	}
+
+	/*
 	public function nonspk_save()
 	{
 		$post = $this->input->post();
@@ -77,4 +110,5 @@ class Invoice extends CI_Controller
 			'message' => 'Transaksi Berhasil'
 		]));
 	}
+	*/
 }
